@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { v4: uuidv4 } = require('uuid');
 
 let books = [{
   id: 1,
@@ -25,8 +26,14 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
+  // console.log(req.body);
+  const book = {
+      title: req.body.title || 'default title',
+      author: req.body.author || 'default author',
+      id: uuidv4()
+  };
+  books.push(book);
+  return res.json(book);
 });
 
 module.exports = router;
