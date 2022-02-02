@@ -36,4 +36,18 @@ router.post('/', (req, res) => {
   return res.json(book);
 });
 
+router.put('/:id', (req, res) => {
+  const bookId = parseInt(req.params.id, 10);
+
+  books.forEach((book) => {
+    if(book.id === bookId){
+      book.title = req.body.title;
+      book.author = req.body.author;
+    }
+  });
+
+  const newBook = books.find(book => book.id === bookId);
+  return res.json(newBook);
+});
+
 module.exports = router;
