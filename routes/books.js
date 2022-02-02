@@ -50,4 +50,17 @@ router.put('/:id', (req, res) => {
   return res.json(newBook);
 });
 
+router.delete('/:id', (req, res) => {
+  const bookId = parseInt(req.params.id, 10);
+
+  books = books.filter(book => book.id !== bookId);
+  const existBook = books.find(book => book.id === bookId);  
+
+  if(!existBook) {
+    return res.send(`Book with id ${bookId} was deleted`).status(400);
+  } else {
+    return res.send('Something wrong').status(400);
+  }
+})
+
 module.exports = router;
